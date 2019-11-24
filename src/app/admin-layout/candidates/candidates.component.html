@@ -1,0 +1,307 @@
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-sm-8">
+            <h2>Quản lý sinh viên</h2>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-row justify-content-end">
+                <a href="#addCandidateModal" class="btn btn-outline-primary" data-toggle="modal"><i
+                        class="fa fa-plus"></i>
+                    <span> Thêm mới</span></a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<br>
+<div class="col-sm-12">
+    <div class="table-responsive-md">
+        <table id="candidate-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+            class="table table-striped dt-responsive table-hover">
+
+            <thead class="table-header">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Họ</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Điện thoại</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let candidate of candidates; let i = index">
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{candidate.lastName}}</td>
+                        <td>{{candidate.firstName}}</td>
+
+                        <td>
+                            <ng-container *ngIf="candidate.gender==='MALE'; else elseTemplate">
+                                Nam
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                Nữ
+                            </ng-template>
+
+                        </td>
+                        <td>{{candidate.phone}}</td>
+                        <td>{{candidate.email}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="action-button">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#editCandidateModal" (click)="getSelectedId(candidate.id)">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#deleteCandidateModal" (click)="getSelectedId(candidate.id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<!--  -->
+<!-- Add Modal HTML -->
+<div id="addCandidateModal" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form name="addForm" (ngSubmit)="f.form.valid && addCandidate()" #f="ngForm" novalidate>
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm sinh viên</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Họ</label>
+                                <input type="text" placeholder="Họ và tên đệm" class="form-control"
+                                    #newLastName="ngModel" ngModel name="newLastName"
+                                    [(ngModel)]="newCandidate.lastName"
+                                    [ngClass]="{'is-invalid': newLastName.invalid && (newLastName.dirty || newLastName.touched|| f.submitted)}"
+                                    required>
+                                <div *ngIf="newLastName.invalid && (newLastName.dirty || newLastName.touched || f.submitted )"
+                                    class="text text-danger">
+                                    <small>Họ là bắt buộc!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" placeholder="Tên người dùng" class="form-control"
+                                    #newFirstName="ngModel" ngModel name="newFirstName"
+                                    [(ngModel)]="newCandidate.firstName"
+                                    [ngClass]="{'is-invalid': newFirstName.invalid && (newFirstName.dirty || newFirstName.touched|| f.submitted)}"
+                                    required>
+                                <div *ngIf="newFirstName.invalid && (newFirstName.dirty || newFirstName.touched|| f.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="newFirstName?.errors.required">
+                                        <small>Tên là bắt buộc!</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Địa chỉ email" class="form-control"
+                            #newEmail="ngModel" ngModel name="newEmail"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="newCandidate.email" required
+                            [ngClass]="{'is-invalid': newEmail.invalid && (newEmail.dirty || newEmail.touched|| f.submitted)}">
+                        <div *ngIf="newEmail.invalid && (newEmail.dirty || newEmail.touched|| f.submitted)"
+                            class="text text-danger">
+                            <div *ngIf="newEmail?.errors?.required"><small>Email là bắt buộc!</small></div>
+                            <div *ngIf="newEmail?.errors?.pattern"><small>Email chưa hợp lệ!</small></div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <input type="tel" placeholder="Số điện thoại liên lạc" class="form-control" ngModel
+                                    name="newPhone" #newPhone="ngModel" [(ngModel)]="newCandidate.phone" required
+                                    [ngClass]="{'is-invalid': newPhone.invalid && (newPhone.dirty || newPhone.touched|| f.submitted)}">
+                                <div *ngIf="newPhone.invalid && (newPhone.dirty || newPhone.touched|| f.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="newPhone?.errors.required">
+                                        <small>Số điện thoại là bắt buộc!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="newgender">Giới tính</label>
+                                <select class="custom-select" #newgender="ngModel" id="newgender" ngModel
+                                    name="newgender" [(ngModel)]="newCandidate.gender"
+                                    [ngClass]="{'is-invalid': newgender.invalid && (newgender.dirty || newgender.touched|| f.submitted)}"
+                                    required>
+
+                                    <option value="MALE">Nam</option>
+                                    <option value="FEMALE">Nữ</option>
+
+                                </select>
+                                <div *ngIf="newgender.invalid && (newgender.dirty || newgender.touched|| f.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="newgender?.errors.required">
+                                        <small>Giới tính là bắt buộc!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="closeAddModal" class="btn btn-default" data-dismiss="modal" value="Huỷ">
+                    <input type="submit" class="btn btn-primary" value="Tạo">
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editCandidateModal" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form (ngSubmit)="formEditCandidate.form.valid && editCandidate()" #formEditCandidate="ngForm">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Cập nhật thông tin sinh viên</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Họ</label>
+                                <input type="text" pattern="[a-zA-Z]*" placeholder="Họ và tên đệm" class="form-control"
+                                    #editLastName="ngModel" ngModel name="editLastName"
+                                    [(ngModel)]="selectedCandidate.lastName"
+                                    [ngClass]="{'is-invalid': editLastName.invalid && (editLastName.dirty || editLastName.touched|| formEditCandidate.submitted)}"
+                                    required>
+                                <div *ngIf="editLastName.invalid && (editLastName.dirty || editLastName.touched|| formEditCandidate.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="editLastName?.errors.required">
+                                        <small>Họ là bắt buộc!</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" pattern="[a-zA-Z]*" placeholder="Tên người dùng" class="form-control"
+                                    #editFirstName="ngModel" ngModel name="editFirstName"
+                                    [(ngModel)]="selectedCandidate.firstName"
+                                    [ngClass]="{'is-invalid': editFirstName.invalid && (editFirstName.dirty || editFirstName.touched|| formEditCandidate.submitted)}"
+                                    required>
+                                <div *ngIf="editFirstName.invalid && (editFirstName.dirty || editFirstName.touched|| formEditCandidate.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="editFirstName?.errors.required">
+                                        <small>Tên là bắt buộc!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Email" class="form-control" #editEmail="ngModel" ngModel
+                            name="editEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            [(ngModel)]="selectedCandidate.email"
+                            [ngClass]="{'is-invalid': editEmail.invalid && (editEmail.dirty || editEmail.touched|| formEditCandidate.submitted)}"
+                            required>
+                        <div *ngIf="editEmail.invalid && (editEmail.dirty || editEmail.touched|| formEditCandidate.submitted)"
+                            class="text text-danger">
+                            <div *ngIf="editEmail?.errors?.required"><small>Email là bắt buộc!</small></div>
+                            <div *ngIf="editEmail?.errors?.pattern"><small>Email chưa hợp lệ!</small></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <input type="tel" placeholder="Phone number" class="form-control" #editPhone="ngModel"
+                                    ngModel name="editPhone" [(ngModel)]="selectedCandidate.phone" required
+                                    [ngClass]="{'is-invalid': editPhone.invalid && (editPhone.dirty || editPhone.touched|| formEditCandidate.submitted)}">
+                                <div *ngIf="editPhone.invalid && (editPhone.dirty || editPhone.touched|| formEditCandidate.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="editPhone?.errors.required">
+                                        <small>Số điện thoại là bắt buộc!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="editGender">Giới tính</label>
+                                <select class="form-control" id="editGender" #editGender="ngModel" ngModel
+                                    name="editGender" [(ngModel)]="selectedCandidate.gender" required
+                                    [ngClass]="{'is-invalid': editGender.invalid && (editGender.dirty || editGender.touched|| formEditCandidate.submitted)}">
+
+                                    <option value="MALE">Nam</option>
+                                    <option value="FEMALE">Nữ</option>
+                                </select>
+                                <div *ngIf="editGender.invalid && (editGender.dirty || editGender.touched|| formEditCandidate.submitted)"
+                                    class="text text-danger">
+                                    <div *ngIf="editGender?.errors.required">
+                                        <small>Giới tính là bắt buộc!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="closeEditModal" class="btn btn-default" data-dismiss="modal" value="Huỷ">
+                    <input type="submit" class="btn btn-info" value="Lưu">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal HTML -->
+<div id="deleteCandidateModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form (ngSubmit)="removeCandidate()">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xác nhận xoá sinh viên</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có thực sự muốn xoá sinh viên này?</p>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="closeDeleteModal" class="btn btn-default" data-dismiss="modal" value="Huỷ">
+                    <input type="submit" class="btn btn-danger" value="Chấp nhận">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ngx-loading-bar></ngx-loading-bar>

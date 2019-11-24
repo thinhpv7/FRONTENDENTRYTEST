@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+      <div class="col-sm-8">
+          <h2>Quản lý bài kiểm tra</h2>
+      </div>
+      <div class="col-sm-4">
+          <div class="form-row justify-content-end">
+            <a routerLink="../add-test" class="btn btn-outline-primary" data-toggle="modal"><i class="fa fa-plus"></i>
+              <span> Thêm mới</span></a>
+          </div>
+
+      </div>
+  </div>
+
+</div>
+<br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border table-striped hover">
+      <thead>
+      <tr class="table-header">
+        <th scope="col">#</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Thời gian</th>
+        <th scope="col">Ngày giờ bắt đầu</th>
+        <th scope="col">Số lượng câu hỏi</th>
+        <th scope="col">Thao tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let testItem of listTest; let i = index">
+        <tr>
+          <th scope="row">{{i + 1}}</th>
+          <td>{{testItem.testTitle}}</td>
+          <td>{{testItem.testTime}} phút</td>
+          <td>{{testItem.dateTimeTest}}</td>
+          <td>{{testItem.questionList.length}}</td>
+          <td>
+              <div class="btn-group" role="group" aria-label="action-button">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                          <i class="fa fa-edit"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" (click)="getSelected(testItem.id)">
+                          <i class="fa fa-trash"></i>
+                  </button>
+                  
+              </div>
+
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Deleted form -->
+<div id="deleteModal" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form (ngSubmit)="deleteTest()">
+              <div class="modal-header">
+                  <h4 class="modal-title">Xác nhận xoá bài kiểm tra</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <p>Bạn có thực sự muốn xoá bài kiểm tra này?</p>
+
+              </div>
+              <div class="modal-footer">
+                  <input type="button" id="closeDeleteModal" class="btn btn-default" data-dismiss="modal" value="Huỷ">
+                  <input type="submit" class="btn btn-danger" value="Chấp nhận">
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<ngx-loading-bar></ngx-loading-bar>

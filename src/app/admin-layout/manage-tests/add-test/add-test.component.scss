@@ -1,0 +1,21 @@
+.list-question {
+    .icon-info{
+        display: none;
+    }
+    &:hover{
+        .icon-info{
+            display: inline-block
+        }
+    }
+}
+.list-test-question{
+    .icon-info{
+        display: none;
+    }
+    &:hover{
+        .icon-info{
+            display: inline-block
+        }
+    }
+}
+
