@@ -49,6 +49,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
     {id: 'true', value: 'Đúng'},
     {id: 'false', value: 'Sai'}
   ];
+  searchText: string='';
+  selectedSubjectTest: any={};
+  selectedPartTest: any;
+  questionList: any=[];
+  totalScore: number=0;
+  listTest: any=[];
+  selectedPart: any={};
+  selectedType: any={};
 
   constructor(
     private questionTypeService: QuestiontypeService,
@@ -151,6 +159,50 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.partService.getPartBySubjectId(this.selectedSubject.id).subscribe(data=>this.parts=data);
 
   }
+
+  //lấy đối tượng câu hỏi được chọn qua id
+  getSelectedQuestion(id: number){
+
+    this.questionService.getQuestionById(id).subscribe(data=>{
+      this.selectedQuestion=data;
+      this.selectedPart=data.part;
+      this.selectedSubject=this.selectedPart.subject;
+      this.selectedAnswers=this.selectedQuestion.questionAnswersList;
+      this.selectedType=this.selectedQuestion.questionType;  
+    })
+  }
+
+  //lấy part theo subject được chọn (selectedSubject)
+  getPart1(){
+    
+    this.partService.getPartBySubjectId(this.selectedSubjectTest.id).subscribe(data=>{
+      this.parts=data;
+      this.selectedPartTest='';
+    });
+  }
+
+  getQuestionsByPartId(){
+    this.partService.getQuestionsByPartId(this.selectedPartTest.id).subscribe(data=>{
+      this.questionList=data.filter(item=>item.deleted===false);
+      
+    })
+  }
+
+  //thêm câu hỏi vào bài test
+  addTestList(q: Question){
+    let index = this.questionList.findIndex(item=>item.id===q.id);
+    if(this.totalScore+q.point>100){
+      this.showError('Điểm số vượt quá 100', 'Lỗi');
+    }
+    else{
+      this.questionList.splice(index, 1);
+      this.listTest.push(q);
+      this.totalScore+=q.point;
+    }
+    
+    
+  }
+
   getType(){
     this.qType = this.newQuestion.questionType;
     switch(this.qType.typeCode){

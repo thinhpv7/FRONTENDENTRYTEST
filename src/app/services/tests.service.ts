@@ -11,7 +11,8 @@ export class TestsService {
 
   //private baseUrl = 'https://sv-web-trac-nghiem.herokuapp.com/api/tests';
   private baseUrl = 'http://localhost:8080/api/tests';
-  private undeletedUrl = 'https://sv-web-trac-nghiem.herokuapp.com/api/false/tests';
+  // private undeletedUrl = 'https://sv-web-trac-nghiem.herokuapp.com/api/false/tests';
+  private undeletedUrl = 'http://localhost:8080/api/false/tests';
 
   constructor(private http: HttpClient) {
   }
