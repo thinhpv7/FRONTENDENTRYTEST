@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -18,7 +19,7 @@ import { AdminComponent } from './admin/admin.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
-
+import { TestCardComponent } from './home/test-card/test-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { PmComponent } from './pm/pm.component';
     AdminComponent,
     RegisterComponent,
     UserComponent,
-    PmComponent],
+    PmComponent,
+    TestCardComponent],
   imports: [
     DataTablesModule,
     BrowserModule,
@@ -38,6 +40,7 @@ import { PmComponent } from './pm/pm.component';
     FormsModule,
     BrowserAnimationsModule,
     LoadingBarHttpClientModule,
+    SharedModule,
     ToastrModule.forRoot(),
 
 
