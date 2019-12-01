@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
 import { TestCardComponent } from './home/test-card/test-card.component';
+import { ResultComponent } from './result/result.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { TestCardComponent } from './home/test-card/test-card.component';
     RegisterComponent,
     UserComponent,
     PmComponent,
-    TestCardComponent],
+    TestCardComponent,
+    ResultComponent],
   imports: [
     DataTablesModule,
     BrowserModule,

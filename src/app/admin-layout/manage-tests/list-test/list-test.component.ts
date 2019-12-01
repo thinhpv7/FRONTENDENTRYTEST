@@ -35,6 +35,7 @@ export class ListTestComponent implements OnInit, OnDestroy {
     }
     this.testService.getTests().subscribe(data => {
       this.listTest = data;
+      console.log(data)
       this.dtTrigger.next();
     });
   }
