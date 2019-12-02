@@ -6,20 +6,19 @@ export class Tests{
     testTime: number
     deleted: boolean;
     dateTimeTest: string;
-    testAccountId: number
+    testAccountName: string
     questionList: Question[];
     classeSet: Classes[];
     
-    constructor(testTitle: string, testTime: number,  dateTimeTest: string, testAccountId: number, questionList: Question[], classeSet: Classes[], deleted: boolean){
+    constructor(testTitle: string, testTime: number,  dateTimeTest: string, testAccountName: string, questionList: Question[], classeSet: Classes[], deleted: boolean){
         this.testTitle=testTitle;
         this.testTime=testTime;
         this.deleted=deleted;
         this.dateTimeTest=dateTimeTest;
         this.questionList=questionList,
         this.classeSet=classeSet;
-        this.testAccountId = testAccountId
+        this.testAccountName = testAccountName
     }
-
     // @ts-ignore
     constructor()
 }

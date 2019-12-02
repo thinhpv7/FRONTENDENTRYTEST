@@ -6,6 +6,7 @@ import { Tests } from 'src/app/models/tests';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { ToastrService } from 'ngx-toastr';
 import { CUSTOM_LANGUAGE } from 'src/app/shared/language-options';
+import { TokenStorageService } from '../../../auth/token-storage.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { CUSTOM_LANGUAGE } from 'src/app/shared/language-options';
   styleUrls: ['./list-test.component.scss']
 })
 export class ListTestComponent implements OnInit, OnDestroy {
+  info: any;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -24,14 +26,22 @@ export class ListTestComponent implements OnInit, OnDestroy {
   listTest: any = [];
   selectedTest: any={};
 
-  constructor(private testService: TestsService, private toastr: ToastrService) {
+  constructor(private testService: TestsService, private toastr: ToastrService, private token: TokenStorageService) {
   }
 
   ngOnInit() {
+    this.info = {
+      token: this.token.getToken(),
+      accountname: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       language: CUSTOM_LANGUAGE
+    }
+    if(this.info.accountname === ''){
+
     }
     this.testService.getTests().subscribe(data => {
       this.listTest = data;
