@@ -8,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class QuizService {
   //---------------- Properties---------------
   readonly getQuestionURL = 'http://localhost:8080/api/questions/';
-  readonly getTestsURL = 'http://localhost:8080/api/false/tests/';
-  readonly getTestIdURL = 'http://localhost:8080/api/tests/';
+  readonly TestsURL = 'http://localhost:8080/api/tests/';
   readonly getAnswerSheetURL = 'http://localhost:8080/api/answerssheets'
   readonly rootURL = 'http://localhost:8080';
 
@@ -25,12 +24,12 @@ export class QuizService {
       + Math.floor(this.seconds % 60);
   }
   //---------------- Http Methods---------------
-  getQuestions() {
-    return this.http.get(this.getQuestionURL);
+  public getTests(): Observable<any> {
+    return this.http.get(this.TestsURL)
   }
 
-  getTestsByID(id: string): Observable<any> {
-    return this.http.get(this.getTestIdURL+ id);
+  public getQuestions(id: string): Observable<any> {
+    return this.http.get(this.getQuestionURL + id)
   }
 
   // getAnswer() {
@@ -38,10 +37,7 @@ export class QuizService {
   //   return this.http.post(this.getAnswerSheetURL, body);
   // }
 
-  getTests() {
-    return this.http.get(this.getTestsURL);
-  }
-
+  
   submitScore() {
     var body = JSON.parse(localStorage.getItem('user'));
     body.Score = this.correctAnswerCount;

@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { Tests } from './../../models/tests';
 import { Question } from './../../models/question';
-import { TestsService } from './../../services/tests.service';
 import { QuizService } from './../../services/quiz.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -12,13 +11,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./quiz-detail.component.scss']
 })
 export class QuizDetailComponent implements OnInit {
-  tests$: Observable<any>;
-  question$: Observable<any>;
   //Quiz = Question , Subject = Tests
   currentPage = 0;
   currentQuizId: string;
   currentQuiz: Question;
-  Quizs: Question[];
+  Questions: Question[];
   Question: String;
   Answers: Object;
   Timer: Date;
@@ -27,14 +24,12 @@ export class QuizDetailComponent implements OnInit {
   length: number;
   sumpoint = 0;
 
-  constructor(private quizService: QuizService, private testService: TestsService, private route: ActivatedRoute) { }
+  constructor(private quizService: QuizService,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.tests$ = this.testService.getTests();
-    this.question$ = this.quizService.getQuestions();
     this.getTest();
     this.Timer = new Date();
-    this.tests$.subscribe(data => {
+    this.quizService.getTests().subscribe(data => {
       for (var i = 0; i < data.length; i++) {
         if (data[i].Id == this.currentQuizId) {
           this.test = data[i];
@@ -48,13 +43,13 @@ export class QuizDetailComponent implements OnInit {
   getTest() {
     const id = this.route.snapshot.paramMap.get("id");
     this.currentQuizId = id;
-    this.quizService.getTestsByID(id.toString()).subscribe(quizs => {
-      this.Quizs = quizs;
-      this.currentQuiz = this.Quizs[this.currentPage];
+    this.quizService.getQuestions(id.toString()).subscribe(quizs => {
+      this.Questions = quizs;
+      this.currentQuiz = this.Questions[this.currentPage];
       this.Question = this.currentQuiz.questionContent;
       this.Answers = this.currentQuiz.questionAnswerList;
-      this.length = quizs.length;
-      console.log(this.length)
+      this.length = quizs.length();
+        console.log(this.length);
     });
   }
 
@@ -68,7 +63,7 @@ export class QuizDetailComponent implements OnInit {
     var Result = <HTMLHeadingElement>document.createElement("h3");
     Result.innerHTML = "Result";
     var res = <HTMLParagraphElement>document.createElement("p");
-    res.innerHTML = this.sumpoint + "/" + this.Quizs.length;
+    res.innerHTML = this.sumpoint + "/" + this.Questions.length;
     var Timer = <HTMLHeadingElement>document.createElement("h3");
     Timer.innerHTML = "Time spent";
     var time = <HTMLParagraphElement>document.createElement("p");
@@ -112,13 +107,13 @@ export class QuizDetailComponent implements OnInit {
         this.PAns[key] = value;
         if (para.value.toString() == AnsID) {
           this.sumpoint++;
-          point.innerHTML = this.sumpoint + "/" + this.Quizs.length;
+          point.innerHTML = this.sumpoint + "/" + this.Questions.length;
         }
       }
     }
     this.currentPage = i;
 
-    this.currentQuiz = this.Quizs[i];
+    this.currentQuiz = this.Questions[i];
     this.Answers = this.currentQuiz.questionAnswerList;
     var ans = Array.of(this.Answers);
     var res = <HTMLFormElement>document.createElement("form");

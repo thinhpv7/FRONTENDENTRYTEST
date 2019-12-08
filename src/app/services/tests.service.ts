@@ -20,6 +20,9 @@ export class TestsService {
   getTests(): Observable<any[]> {
     return this.http.get<any[]>(this.undeletedUrl);
   }
+  // getTests(): Observable<any> {
+  //   return this.http.get(this.undeletedUrl);
+  // }
   createTest(t: Tests): Observable<Tests>{
     return this.http.post<Tests>(this.baseUrl, t);
   }

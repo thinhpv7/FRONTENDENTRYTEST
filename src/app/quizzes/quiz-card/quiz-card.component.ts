@@ -1,3 +1,5 @@
+import { TestsService } from 'src/app/services/tests.service';
+import { QuestionService } from 'src/app/services/question.service';
 import { Tests } from './../../models/tests';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,12 +17,13 @@ export class QuizCardComponent implements OnInit {
   tests$: Observable<any>;
   test: Tests[];
   selectedTest: Tests;
-  constructor(private quizService: QuizService, private router: Router) { }
+  constructor(private quizService: QuizService, private router: Router, private questionService: QuestionService,
+              private testsService: TestsService) { }
 
   ngOnInit() {
-    this.question$ = this.quizService.getQuestions();
+    this.question$ = this.questionService.getQuestions();
     // this.answer$ = this.quizService.getAnswer();
-    this.tests$ = this.quizService.getTests();
+    this.tests$ = this.testsService.getTests();
     this.tests$.subscribe(data => {
       const a = data;
       console.log(a);
