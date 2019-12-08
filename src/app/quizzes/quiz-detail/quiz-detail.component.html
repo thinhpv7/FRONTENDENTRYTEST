@@ -1,1 +1,64 @@
-<p>Work</p>
+<!-- <div class="cont">
+    <div id="Exam" class="container">
+        <div class="title">
+            <h1>
+                {{ test.testTitle }}
+            </h1>
+           
+            <p id="demo"
+                style="text-align: center; background:rgba(17,17,17,0.9); width: 160px;padding:10px; color:#59d4e8; font-weight: bold;font-size: 16px;border-radius: 15px;">
+                Timer: 00:00
+            </p>
+        </div>
+        <div class="fixed-Content">
+            <div class="container-content">
+                <h4 style="margin-bottom: 20px; text-decoration: underline;" id="nQ">
+                    Câu hỏi số {{ curentPage + 1 }}:
+                </h4>
+                <p id="Quiz" style="font-size: 25px; font-weight: 700">
+                    {{ Question }}
+                </p>
+                <hr />
+                <form id="Ans" style="font-size: 20px;">
+                    <div *ngFor="let answer of Answers" class="padding:10px;">
+                        <input style="margin: 10px 10px 0 0;" type="radio" name="answer" id="{{ answer.Id }}"
+                            (click)="selectAns()" value="{{ answer.Id }}" />
+                        <span><label style="font-weight: 200" for="{{ answer.Id }}">{{
+                  answer.Text
+                }}</label></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <div class="mark"
+                style="background:rgba(17,17,17,0.9); width: 120px;padding:10px; color:#cf4b0e; font-weight: bold;font-size: 16px;border-radius: 16px;">
+                Mark:
+                <span id="point">0/{{ Quizs.length }}</span>
+            </div>
+
+            <div class="Button-Form">
+                <ng-template [ngIf]="curentPage != 0" [ngIfElse]="disLeft">
+                    <button title="Quay lại" (click)="navQuiz(curentPage - 1)" type="button">
+                        <i class="fas fa-arrow-circle-left"></i>
+                    </button>
+                </ng-template>
+                <ng-template [ngIf]="curentPage != Quizs.length - 1" [ngIfElse]="disRight">
+                    <button title="Câu tiếp theo" (click)="navQuiz(curentPage + 1)" type="button">
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </button>
+                </ng-template>
+            </div>
+            <div class="Quiz">
+                <input *ngFor="let item of Quizs; let i = index" (click)="navQuiz(i)" class="board"
+                    value="Câu {{ i + 1 }}" type="button" />
+            </div>
+        </div>
+        <div class="Submit">
+            <button type="button" id="button" (click)="myFunction()" type="button">
+                Nộp Bài
+            </button>
+        </div>
+    </div>
+</div> -->

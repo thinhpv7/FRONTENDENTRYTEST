@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,8 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuizService {
   //---------------- Properties---------------
-  readonly getQuestionURL = 'http://localhost:8080/api/questions';
-  readonly getTestsURL = 'http://localhost:8080/api/false/tests';
+  readonly getQuestionURL = 'http://localhost:8080/api/questions/';
+  readonly getTestsURL = 'http://localhost:8080/api/false/tests/';
+  readonly getTestIdURL = 'http://localhost:8080/api/tests/';
   readonly getAnswerSheetURL = 'http://localhost:8080/api/answerssheets'
   readonly rootURL = 'http://localhost:8080';
 
@@ -25,6 +27,10 @@ export class QuizService {
   //---------------- Http Methods---------------
   getQuestions() {
     return this.http.get(this.getQuestionURL);
+  }
+
+  getTestsByID(id: string): Observable<any> {
+    return this.http.get(this.getTestIdURL+ id);
   }
 
   // getAnswer() {
