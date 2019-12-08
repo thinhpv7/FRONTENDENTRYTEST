@@ -1,3 +1,5 @@
+import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
+import { QuizCardComponent } from './quizzes/quiz-card/quiz-card.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
@@ -8,38 +10,46 @@ import { QuestionComponent } from './admin-layout/question/question.component';
 import { ManageTestsComponent } from './admin-layout/manage-tests/manage-tests.component';
 import { AddTestComponent } from './admin-layout/manage-tests/add-test/add-test.component';
 import { ListTestComponent } from './admin-layout/manage-tests/list-test/list-test.component';
-import {HomeComponent} from './home/home.component'
-import {UserComponent} from './user/user.component'
-import {PmComponent} from './pm/pm.component'
-import {LoginComponent} from './login/login.component'
-import {RegisterComponent} from './register/register.component'
-import {AdminComponent} from './admin/admin.component'
+import { HomeComponent } from './home/home.component'
+import { UserComponent } from './user/user.component'
+import { PmComponent } from './pm/pm.component'
+import { LoginComponent } from './login/login.component'
+import { RegisterComponent } from './register/register.component'
+import { AdminComponent } from './admin/admin.component'
 
 const routes: Routes = [
-  {path: 'admin', component: AdminLayoutComponent, children: [
-    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'candidates', component: CandidatesComponent},
-    {path: 'questions', component: QuestionComponent},
-    {path: 'tests', component: ManageTestsComponent, children:[
-      {path: '', redirectTo: 'list-test', pathMatch: 'full'},
-      {path: 'list-test', component: ListTestComponent},
-      {path: 'add-test',component: AddTestComponent}
-    ]}
-  ]},
+  {
+    path: 'admin', component: AdminLayoutComponent, children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'candidates', component: CandidatesComponent },
+      { path: 'questions', component: QuestionComponent },
+      {
+        path: 'tests', component: ManageTestsComponent, children: [
+          { path: '', redirectTo: 'list-test', pathMatch: 'full' },
+          { path: 'list-test', component: ListTestComponent },
+          { path: 'add-test', component: AddTestComponent }
+        ]
+      }
+    ]
+  },
   // { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  {path: 'home', component: HomeComponent, children: [
-    {path: 'auth/login',component: LoginComponent},
-    {path: 'home',redirectTo: '', pathMatch: 'full'},
-    {path: 'signup',component: RegisterComponent}
-  ]},
-  {path: 'user', component: UserComponent},
-  {path: 'pm', component: PmComponent},
-  {path: 'admin', component: AdminComponent},
+  {
+    path: 'home', component: HomeComponent, children: [
+      { path: 'auth/login', component: LoginComponent },
+      { path: 'home', redirectTo: '', pathMatch: 'full' },
+      { path: 'signup', component: RegisterComponent },
+      { path: 'quiz', component: QuizCardComponent },
+      { path: 'quiz/:id', component: QuizDetailComponent },
+    ]
+  },
+  { path: 'user', component: UserComponent },
+  { path: 'pm', component: PmComponent },
+  { path: 'admin', component: AdminComponent },
   //{path: 'auth/login',component: LoginComponent},
   // {path: 'signup',component: RegisterComponent},
-  {path: '',redirectTo: 'home', pathMatch: 'full'},
-  {path: '**', component: PageNotFoundComponent}
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

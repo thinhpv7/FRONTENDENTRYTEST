@@ -1,0 +1,9 @@
+<div style="display:flex;flex-wrap: nowrap; justify-content: center;">
+    <div *ngFor="let item of tests$ | async" class="card box1" style="width: 18rem;" [class.selected]="item === selectedTest">
+        <div class="card-body">
+            <h5 class="card-title">Title: {{item.testTitle}} </h5>
+            <p class="card-text">Time: {{item.testTime}} </p>
+            <a (click)="onClick()" href="home/quiz/{{ item.id }}" class="btn btn-primary" style="color: white">Play</a>
+        </div>
+    </div>
+</div>
