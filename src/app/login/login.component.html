@@ -18,8 +18,11 @@
     Login successfully !!!!
   </div>
 </div>
-
   <ng-template #loggedOut>
+    <button (click)="backToHome()" class="btn-primary btn ml-2 mt-3 mb-3">
+      <i class="fas fa-arrow-circle-left"></i> Back to home
+    </button>
+
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">

@@ -7,6 +7,7 @@ import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_c
 import { ToastrService } from 'ngx-toastr';
 import { CUSTOM_LANGUAGE } from 'src/app/shared/language-options';
 import { TokenStorageService } from '../../../auth/token-storage.service';
+import {UserService} from '../../../services/user.service'
 
 
 @Component({
@@ -26,7 +27,11 @@ export class ListTestComponent implements OnInit, OnDestroy {
   listTest: any = [];
   selectedTest: any={};
 
-  constructor(private testService: TestsService, private toastr: ToastrService, private token: TokenStorageService) {
+  listUser: any = []
+
+  constructor(private testService: TestsService, 
+    private toastr: ToastrService, 
+    private token: TokenStorageService, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -48,6 +53,27 @@ export class ListTestComponent implements OnInit, OnDestroy {
       console.log(data)
       this.dtTrigger.next();
     });
+
+    this.getAllUser();
+
+    this.findIdUser()
+  }
+
+  getAllUser(){
+    this.userService.getAll().subscribe(data => {
+      console.log(data)
+      // this.listUser = data;
+      // data.forEach(function(item){
+      //   console.log(item.id)
+      // })
+      console.log(11111111)
+    })
+  }
+
+  findIdUser(){
+    this.listUser.forEach(function(item){
+        console.log(item.id)
+    })
   }
 
   ngOnDestroy(): void {

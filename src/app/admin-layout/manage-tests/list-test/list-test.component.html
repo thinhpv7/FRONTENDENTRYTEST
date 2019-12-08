@@ -30,7 +30,8 @@
       </thead>
       <tbody>
       <ng-container *ngFor="let testItem of listTest; let i = index">
-        <tr>
+            <!-- *ngIf="testItem.accountname == info.accountname" -->
+        <tr >
           <th scope="row">{{i + 1}}</th>
           <td>{{testItem.testTitle}}</td>
           <td>{{testItem.testTime}} phút</td>
@@ -44,9 +45,7 @@
                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" (click)="getSelected(testItem.id)">
                           <i class="fa fa-trash"></i>
                   </button>
-                  
               </div>
-
           </td>
         </tr>
       </ng-container>

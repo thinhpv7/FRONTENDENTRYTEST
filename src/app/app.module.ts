@@ -21,6 +21,7 @@ import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
 import { TestCardComponent } from './home/test-card/test-card.component';
 import { ResultComponent } from './result/result.component';
+import { LayoutHomeComponent } from './layout-home/layout-home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { ResultComponent } from './result/result.component';
     UserComponent,
     PmComponent,
     TestCardComponent,
-    ResultComponent],
+    ResultComponent,
+    LayoutHomeComponent],
   imports: [
     DataTablesModule,
     BrowserModule,

@@ -37,6 +37,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   isShuffle: boolean = true;
   TF: boolean = false;
   MC: boolean = false;
+  SC: boolean = false;
   selectedAnswerTF: any;
   selectedQuestion: any={};
   selectedCorrectAnswerId: number=-1;
@@ -85,6 +86,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     //get danh sach loại câu hỏi
     this.questionTypeService.getTypes().subscribe(data => {
       this.questionTypes = data;
+      // console.log(data)
     });
     //get danh sách môn học
     this.loadSubjects();
@@ -209,17 +211,26 @@ export class QuestionComponent implements OnInit, OnDestroy {
       case 'TF':{
         this.TF=true;
         this.MC=false; 
+        this.SC = false
         break;
       }
       case 'MC':{
         this.MC=true;
         this.TF=false;
+        this.SC = false
+        this.newAnswers.length=0;
+        this.newAnswers.push(new Answer('', 1, false, false), new Answer('', 2, false, false));
+        break;
+      }
+      case 'SC':{
+        this.MC=false;
+        this.TF=false;
+        this.SC = true
         this.newAnswers.length=0;
         this.newAnswers.push(new Answer('', 1, false, false), new Answer('', 2, false, false));
         break;
       }
     }
-
   }
 
 
@@ -258,20 +269,28 @@ export class QuestionComponent implements OnInit, OnDestroy {
     console.log(this.selectedTypeId);
     this.questionTypeService.getTypeById(this.selectedTypeId).subscribe(data=>{
       this.selectedQuestion.questionType=data;
+      console.log(data)
       switch(this.selectedQuestion.questionType.typeCode){
         case 'TF':{
           this.TF=true;
           this.MC=false;
-
+          this.SC = false;
           break;
         }
         case 'MC':{
           this.MC=true;
+          this.TF=false;  
+          this.SC = false;   
+          this.selectedAnswers=this.selectedQuestion.questionAnswersList;
+          break;
+        }
+        case 'SC':{
+          this.SC = true;
+          this.MC=false;
           this.TF=false;     
           this.selectedAnswers=this.selectedQuestion.questionAnswersList;
           break;
         }
-          
       }
     })
     
@@ -302,8 +321,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.MC=true;
           this.TF=false;     
           break;
-        }
-          
+        } 
       }
     });
     
