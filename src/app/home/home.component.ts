@@ -8,6 +8,8 @@ import { TokenStorageService } from '../auth/token-storage.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
+
 export class HomeComponent implements OnInit {
   info: any;
 
@@ -24,6 +26,6 @@ export class HomeComponent implements OnInit {
   logout() {
     this.token.signOut();
     window.location.reload();
-    this.router.navigate(['home']);
+    this.router.navigate(['/home']);
   }
 }
