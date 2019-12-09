@@ -3,7 +3,7 @@
         <div class="title">
             <h1> {{test.testTitle}}
             </h1>
-           
+
             <p id="demo"
                 style="text-align: center; background:rgba(17,17,17,0.9); width: 160px;padding:10px; color:#59d4e8; font-weight: bold;font-size: 16px;border-radius: 15px;">
                 Timer: 00:00
@@ -15,15 +15,15 @@
                     Câu hỏi số {{ currentPage + 1 }}:
                 </h4>
                 <p id="Quiz" style="font-size: 25px; font-weight: 700">
-                    {{ Question }}
+                    {{ this.currentQuiz.questionContent }}
                 </p>
                 <hr />
                 <form id="Ans" style="font-size: 20px;">
                     <div *ngFor="let answer of Answers" class="padding:10px;">
-                        <input style="margin: 10px 10px 0 0;" type="radio" name="answer" id="{{ answer.Id }}"
-                            (click)="selectAns()" value="{{ answer.Id }}" />
-                        <span><label style="font-weight: 200" for="{{ answer.Id }}">{{
-                  answer.Text
+                        <input style="margin: 10px 10px 0 0;" type="radio" name="answer" id="{{ answer.id }}"
+                            (click)="selectAns()" value="{{ answer.id }}" />
+                        <span><label style="font-weight: 200" for="{{ answer.id }}">{{
+                 answer.answerContent
                 }}</label></span>
                     </div>
                 </form>
@@ -38,12 +38,12 @@
             </div>
 
             <div class="Button-Form">
-                <ng-template [ngIf]="currentPage != 0" >
+                <ng-template [ngIf]="currentPage != 0">
                     <button title="Quay lại" (click)="navQuiz(currentPage - 1)" type="button">
                         <i class="fas fa-arrow-circle-left"></i>
                     </button>
                 </ng-template>
-                <ng-template [ngIf]="currentPage != Questions.length - 1" >
+                <ng-template [ngIf]="currentPage != Questions.length - 1">
                     <button title="Câu tiếp theo" (click)="navQuiz(currentPage + 1)" type="button">
                         <i class="fas fa-arrow-circle-right"></i>
                     </button>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="Submit">
-            <button type="button" id="button"  type="button">
+            <button type="button" id="button" type="button">
                 Nộp Bài
             </button>
         </div>

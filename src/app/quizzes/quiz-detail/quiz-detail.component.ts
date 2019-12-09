@@ -1,10 +1,10 @@
+import { Answer } from './../../models/answer';
 import { Observable } from 'rxjs';
 import { Tests } from './../../models/tests';
 import { Question } from './../../models/question';
 import { QuizService } from './../../services/quiz.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-quiz-detail',
   templateUrl: './quiz-detail.component.html',
@@ -17,7 +17,7 @@ export class QuizDetailComponent implements OnInit {
   currentQuiz: Question;
   Questions: Question[];
   Question: String;
-  Answers: Object;
+  Answers: Answer[];
   Timer: Date;
   test: Tests;
   PAns: { [key: string]: string; } = {};
@@ -29,9 +29,6 @@ export class QuizDetailComponent implements OnInit {
   ngOnInit() {
     this.getTest();
     this.Timer = new Date();
-    this.quizService.getQuestions('52').subscribe(data => {
-      console.log(data);
-    })
     this.quizService.getTests().subscribe(data => {
       // console.log(data);
       for (var i = 0; i < data.length; i++) {
@@ -48,43 +45,43 @@ export class QuizDetailComponent implements OnInit {
   getTest() {
     const id = this.route.snapshot.paramMap.get("id");
     this.currentQuizId = id;
-    this.quizService.getQuestions(id.toString()).subscribe(quizs => {
+    this.quizService.getQuestions().subscribe(quizs => {
       this.Questions = quizs;
       this.currentQuiz = this.Questions[this.currentPage];
       this.Question = this.currentQuiz.questionContent;
       this.Answers = this.currentQuiz.questionAnswerList;
+      console.log(this.Answers);
       this.length = quizs.length;
-      console.log(this.Question);
     });
   }
 
-  // async myFunction() {
-  //   var time_spent = document.getElementById('demo').innerText;
-  //   var container = document.getElementsByClassName('cont')[0];
-  //   container.innerHTML = "";
-  //   container.setAttribute("style", "text-align:center; width: 100%; padding: 150px;");
-  //   var H3 = <HTMLHeadingElement>document.createElement("h3");
-  //   H3.innerHTML = this.test.testTitle;
-  //   var Result = <HTMLHeadingElement>document.createElement("h3");
-  //   Result.innerHTML = "Result";
-  //   var res = <HTMLParagraphElement>document.createElement("p");
-  //   res.innerHTML = this.sumpoint + "/" + this.Questions.length;
-  //   var Timer = <HTMLHeadingElement>document.createElement("h3");
-  //   Timer.innerHTML = "Time spent";
-  //   var time = <HTMLParagraphElement>document.createElement("p");
-  //   time.innerHTML = time_spent;
-  //   var Home = <HTMLElement>document.createElement("a");
-  //   Home.setAttribute("style", "border: 1px solid gray; background-color: black; color: white; padding: 10px; border-radius: 5px");
-  //   Home.setAttribute("href", "home");
-  //   Home.innerHTML = "Home";
+  async myFunction() {
+    var time_spent = document.getElementById('demo').innerText;
+    var container = document.getElementsByClassName('cont')[0];
+    container.innerHTML = "";
+    container.setAttribute("style", "text-align:center; width: 100%; padding: 150px;");
+    var H3 = <HTMLHeadingElement>document.createElement("h3");
+    H3.innerHTML = this.test.testTitle;
+    var Result = <HTMLHeadingElement>document.createElement("h3");
+    Result.innerHTML = "Result";
+    var res = <HTMLParagraphElement>document.createElement("p");
+    res.innerHTML = this.sumpoint + "/" + this.Questions.length;
+    var Timer = <HTMLHeadingElement>document.createElement("h3");
+    Timer.innerHTML = "Time spent";
+    var time = <HTMLParagraphElement>document.createElement("p");
+    time.innerHTML = time_spent;
+    var Home = <HTMLElement>document.createElement("a");
+    Home.setAttribute("style", "border: 1px solid gray; background-color: black; color: white; padding: 10px; border-radius: 5px");
+    Home.setAttribute("href", "home");
+    Home.innerHTML = "Home";
 
-  //   container.appendChild(H3);
-  //   container.appendChild(Result);
-  //   container.appendChild(res);
-  //   container.appendChild(Timer);
-  //   container.appendChild(time);
-  //   container.appendChild(Home);
-  // }
+    container.appendChild(H3);
+    container.appendChild(Result);
+    container.appendChild(res);
+    container.appendChild(Timer);
+    container.appendChild(time);
+    container.appendChild(Home);
+  }
 
   async selectAns() {
     var board = document.getElementsByClassName('board');

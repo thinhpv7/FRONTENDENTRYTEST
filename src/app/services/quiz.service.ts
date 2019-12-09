@@ -29,8 +29,8 @@ export class QuizService {
   }
 
 
-  public getQuestions(id: string): Observable<any> {
-    return this.http.get(this.getQuestionURL + id)
+  public getQuestions(): Observable<any> {
+    return this.http.get(this.getQuestionURL)
   }
 
   // getAnswer() {
