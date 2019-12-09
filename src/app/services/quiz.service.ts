@@ -28,6 +28,7 @@ export class QuizService {
     return this.http.get(this.TestsURL)
   }
 
+
   public getQuestions(id: string): Observable<any> {
     return this.http.get(this.getQuestionURL + id)
   }
