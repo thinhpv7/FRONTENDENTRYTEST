@@ -17,7 +17,9 @@ import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { AdminComponent } from './admin/admin.component'
 
+
 const routes: Routes = [
+
   {
     path: 'admin', component: AdminLayoutComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -33,23 +35,19 @@ const routes: Routes = [
       }
     ]
   },
-  // { path: '', redirectTo: 'admin', pathMatch: 'full' },
   {
     path: 'home', component: HomeComponent, children: [
-      { path: 'auth/login', component: LoginComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'signup', component: RegisterComponent },
-      { path: 'quiz', component: QuizCardComponent },
-      { path: 'quiz/:id', component: QuizDetailComponent },
     ]
   },
   { path: 'user', component: UserComponent },
   { path: 'pm', component: PmComponent },
   { path: 'admin', component: AdminComponent },
-  //{path: 'auth/login',component: LoginComponent},
-  // {path: 'signup',component: RegisterComponent},
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'signup', component: RegisterComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
+
 ];
 
 @NgModule({

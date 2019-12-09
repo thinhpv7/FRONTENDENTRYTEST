@@ -40,13 +40,11 @@ export class TokenStorageService {
 
   public getAuthorities(): string[] {
     this.roles = [];
-
     if (sessionStorage.getItem(TOKEN_KEY)) {
       JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
         this.roles.push(authority.authority);
       });
     }
-
     return this.roles;
   }
 }

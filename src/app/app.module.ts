@@ -21,6 +21,8 @@ import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
 import { QuizCardComponent } from './quizzes/quiz-card/quiz-card.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
+import { ResultComponent } from './result/result.component';
+import { LayoutHomeComponent } from './layout-home/layout-home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +33,9 @@ import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component
     UserComponent,
     PmComponent,
     QuizCardComponent,
-    QuizDetailComponent
-  ],
+    QuizDetailComponent,
+    ResultComponent,
+    LayoutHomeComponent],
   imports: [
     DataTablesModule,
     BrowserModule,
