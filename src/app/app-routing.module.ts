@@ -38,6 +38,8 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent, children: [
       { path: 'home', redirectTo: '', pathMatch: 'full' },
+      { path: 'quiz', component: QuizCardComponent },
+      { path: 'quiz/:id', component: QuizDetailComponent },
     ]
   },
   { path: 'user', component: UserComponent },
