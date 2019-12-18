@@ -3,7 +3,7 @@
         <div class="card-body">
             <h5 class="card-title">Title: {{item.testTitle}} </h5>
             <p class="card-text">Time: {{item.testTime}} </p>
-            <a (click)="onClick()" href="home/quiz/{{ item.id }}" class="btn btn-primary" style="color: white">Play</a>
+            <a (click)="onClick()" routerLink="/home/quiz/{{ item.id }}" class="btn btn-primary" style="color: white">Play</a>
         </div>
     </div>
 </div>

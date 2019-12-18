@@ -23,6 +23,7 @@ import { QuizCardComponent } from './quizzes/quiz-card/quiz-card.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
 import { ResultComponent } from './result/result.component';
 import { LayoutHomeComponent } from './layout-home/layout-home.component';
+import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { LayoutHomeComponent } from './layout-home/layout-home.component';
     QuizCardComponent,
     QuizDetailComponent,
     ResultComponent,
-    LayoutHomeComponent],
+    LayoutHomeComponent,
+    ContactComponent],
   imports: [
     DataTablesModule,
     BrowserModule,

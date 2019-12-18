@@ -16,6 +16,7 @@ import { PmComponent } from './pm/pm.component'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { AdminComponent } from './admin/admin.component'
+import { ContactComponent } from './contact/contact.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
+  { path: 'contact', component: ContactComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 
